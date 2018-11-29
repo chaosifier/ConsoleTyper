@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Text;
 
 namespace ConsoleTyper
 {
@@ -12,8 +13,17 @@ namespace ConsoleTyper
 
         static void Main(string[] args)
         {
-            Console.WriteLine("Enter your text : ");
-            _statementToType = Console.ReadLine().ToString();
+            Console.WriteLine("Enter your custom text : ");
+            _statementToType = Console.ReadLine();
+
+            var sb = new StringBuilder();
+            sb.Append(_statementToType + (string.IsNullOrWhiteSpace(_statementToType) ? string.Empty : " "));
+            while (Console.KeyAvailable)
+            {
+                sb.Append(Console.ReadLine());
+            }
+
+            _statementToType = sb.ToString();
 
             while (StartGame() && char.ToUpperInvariant(Console.ReadKey().KeyChar) == 'R')
             {
