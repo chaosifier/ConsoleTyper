@@ -5,13 +5,16 @@ namespace ConsoleTyper
 {
     class Program
     {
-        private static readonly string _statementToType = "The name Nepal is first recorded in texts from the Vedic period of the Indian subcontinent, the era in ancient India when Hinduism was founded, the predominant religion of the country.";
+        private static string _statementToType;
         private static int _currentIndex;
         private static int _totalErrors = 0;
         private static int _totalKeystrokes = 0;
 
         static void Main(string[] args)
         {
+            Console.WriteLine("Enter your text : ");
+            _statementToType = Console.ReadLine().ToString();
+
             while (StartGame() && char.ToUpperInvariant(Console.ReadKey().KeyChar) == 'R')
             {
                 Console.Clear();
@@ -48,6 +51,10 @@ namespace ConsoleTyper
             Console.WriteLine("Congratulations! You have completed the typing test.");
             Console.WriteLine($"Your average typing speed is : {wpm} words per minute");
             Console.WriteLine($"Your typing accuracy is : {accuracyPercentage.ToString("#.##")}%");
+
+            _currentIndex = 0;
+            _totalErrors = 0;
+            _totalKeystrokes = 0;
 
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("Press R to restart the game. Press any other key to exit.");
