@@ -17,10 +17,11 @@ namespace ConsoleTyper
             _statementToType = Console.ReadLine();
 
             var sb = new StringBuilder();
-            sb.Append(_statementToType + (string.IsNullOrWhiteSpace(_statementToType) ? string.Empty : " "));
+            sb.Append(_statementToType);
             while (Console.KeyAvailable)
             {
-                sb.Append(Console.ReadLine());
+                var nextLine = Console.ReadLine();
+                sb.Append(string.IsNullOrWhiteSpace(nextLine) ? string.Empty : " " + nextLine);
             }
 
             _statementToType = sb.ToString();
