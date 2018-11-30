@@ -10,11 +10,69 @@ namespace ConsoleTyper
         private static int _currentIndex;
         private static int _totalErrors = 0;
         private static int _totalKeystrokes = 0;
+        private static SentenceGenerator _sentenceGenerator;
+        private const ConsoleColor _completedColor = ConsoleColor.DarkGreen;
+        private const ConsoleColor _currentColor = ConsoleColor.White;
+        private const ConsoleColor _remainingColor = ConsoleColor.Green;
 
         static void Main(string[] args)
         {
-            Console.WriteLine("Enter your custom text : ");
-            _statementToType = Console.ReadLine();
+            Console.CancelKeyPress += (s, e) =>
+            {
+                Console.Clear();
+                EnterGame();
+            };
+
+            _sentenceGenerator = new SentenceGenerator();
+
+            EnterGame();
+        }
+
+        private static void EnterGame()
+        {
+            Console.WriteLine("WELCOME TO CONSOLE-TYPER");
+            Console.WriteLine(new string('#', 20));
+
+            char enteredChar = '\0';
+
+            InitializeGame();
+
+            do
+            {
+                enteredChar = char.ToUpperInvariant(Console.ReadKey().KeyChar);
+
+                Console.Clear();
+                if (enteredChar == 'P')
+                {
+                    BeginTyping();
+                }
+                else if (enteredChar == 'R')
+                {
+                    InitializeGame();
+                }
+            } while (enteredChar == 'P' || enteredChar == 'R');
+        }
+
+        private static void InitializeGame()
+        {
+            Console.WriteLine("Press P to play with random sentence. Press E to Enter your custom text.");
+
+            char enteredChar = '\0';
+            do
+            {
+                enteredChar = char.ToUpperInvariant(Console.ReadKey().KeyChar);
+            }
+            while (enteredChar != 'P' && enteredChar != 'E');
+
+            if (enteredChar == 'P')
+            {
+                _statementToType = _sentenceGenerator.GetRandomStatement(100);
+            }
+            else
+            {
+                Console.Write("Enter your custom text : ");
+                _statementToType = Console.ReadLine();
+            }
 
             var sb = new StringBuilder();
             sb.Append(_statementToType);
@@ -26,14 +84,10 @@ namespace ConsoleTyper
 
             _statementToType = sb.ToString();
 
-            while (StartGame() && char.ToUpperInvariant(Console.ReadKey().KeyChar) == 'R')
-            {
-                Console.Clear();
-                StartGame();
-            }
+            BeginTyping();
         }
 
-        private static bool StartGame()
+        private static void BeginTyping()
         {
             Console.WriteLine("Press \"Enter\" to begin typing.");
             while (Console.ReadKey().Key != ConsoleKey.Enter)
@@ -68,8 +122,7 @@ namespace ConsoleTyper
             _totalKeystrokes = 0;
 
             Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("Press R to restart the game. Press any other key to exit.");
-            return true;
+            Console.WriteLine("Press P to replay. Press R to reset the game. Press any other key to exit.");
         }
 
         private static void PrintStatement(bool initial)
@@ -78,6 +131,7 @@ namespace ConsoleTyper
             if (!initial)
             {
                 input = Console.ReadKey().KeyChar;
+
                 _totalKeystrokes++;
             }
 
@@ -89,18 +143,18 @@ namespace ConsoleTyper
                 Console.Clear();
 
                 // completed
-                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.ForegroundColor = _completedColor;
                 Console.Write(_statementToType.Substring(0, _currentIndex));
                 //}
 
                 if (_currentIndex <= _statementToType.Length - 1)
                 {
                     // current
-                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.ForegroundColor = _currentColor;
                     Console.Write(char.IsWhiteSpace(_statementToType[_currentIndex]) ? '_' : _statementToType[_currentIndex]);
 
                     // remaining
-                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.ForegroundColor = _remainingColor;
                     Console.Write(_statementToType.Substring(_currentIndex + 1, _statementToType.Length - (_currentIndex + 1)));
                 }
 

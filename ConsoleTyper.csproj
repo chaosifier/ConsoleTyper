@@ -7,4 +7,8 @@
     <StartupObject />
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Markov" Version="2.0.0" />
+  </ItemGroup>
+
 </Project>
