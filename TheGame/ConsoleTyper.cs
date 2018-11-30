@@ -1,29 +1,28 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 
-namespace ConsoleTyper
+namespace TheGame
 {
-    class Program
+    public class ConsoleTyper
     {
-        private static string _statementToType;
-        private static int _currentIndex;
-        private static int _totalErrors = 0;
-        private static int _totalKeystrokes = 0;
-        private static SentenceGenerator _sentenceGenerator;
+        private string _statementToType;
+        private int _currentIndex;
+        private int _totalErrors = 0;
+        private int _totalKeystrokes = 0;
+        private SentenceGenerator _sentenceGenerator;
         private const ConsoleColor _completedColor = ConsoleColor.DarkGreen;
         private const ConsoleColor _currentColor = ConsoleColor.White;
         private const ConsoleColor _remainingColor = ConsoleColor.Green;
         private const int _randomSentenceMinWords = 50;
 
-        static void Main(string[] args)
+        public ConsoleTyper()
         {
             _sentenceGenerator = new SentenceGenerator();
-
-            EnterGame();
         }
 
-        private static void EnterGame()
+        public void EnterGame()
         {
             Console.WriteLine("WELCOME TO CONSOLE-TYPER");
             Console.WriteLine(new string('#', 25));
@@ -49,7 +48,7 @@ namespace ConsoleTyper
             } while (enteredChar == 'P' || enteredChar == 'R');
         }
 
-        private static void InitializeGame()
+        private void InitializeGame()
         {
             Console.WriteLine("Press R to play with random sentence. Press C to enter your custom text.");
 
@@ -85,7 +84,7 @@ namespace ConsoleTyper
             BeginTyping();
         }
 
-        private static void BeginTyping()
+        private void BeginTyping()
         {
             Console.WriteLine("Press \"Enter\" to begin typing.");
             while (Console.ReadKey().Key != ConsoleKey.Enter)
@@ -123,7 +122,7 @@ namespace ConsoleTyper
             Console.WriteLine("Press P to replay. Press R to reset the game. Press any other key to exit.");
         }
 
-        private static void PrintStatement(bool initial)
+        private void PrintStatement(bool initial)
         {
             char input = '\0';
             if (!initial)

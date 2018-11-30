@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ConsoleTyper
+namespace TheGame
 {
-    public class SentenceGenerator
+    internal class SentenceGenerator
     {
         private MarkovChain<string> _chain;
         private Random _rand = new Random();
@@ -29,7 +29,7 @@ namespace ConsoleTyper
             var sb = new StringBuilder();
 
             while (sb.ToString().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).Length < minimumWords)
-                sb.Append(string.Join(' ', _chain.Chain(_rand)) + " ");
+                sb.Append(string.Join(" ", _chain.Chain(_rand)) + " ");
 
             return sb.ToString().Trim();
         }
