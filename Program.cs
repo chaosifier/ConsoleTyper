@@ -14,15 +14,10 @@ namespace ConsoleTyper
         private const ConsoleColor _completedColor = ConsoleColor.DarkGreen;
         private const ConsoleColor _currentColor = ConsoleColor.White;
         private const ConsoleColor _remainingColor = ConsoleColor.Green;
+        private const int _randomSentenceMinWords = 50;
 
         static void Main(string[] args)
         {
-            Console.CancelKeyPress += (s, e) =>
-            {
-                Console.Clear();
-                EnterGame();
-            };
-
             _sentenceGenerator = new SentenceGenerator();
 
             EnterGame();
@@ -31,7 +26,8 @@ namespace ConsoleTyper
         private static void EnterGame()
         {
             Console.WriteLine("WELCOME TO CONSOLE-TYPER");
-            Console.WriteLine(new string('#', 20));
+            Console.WriteLine(new string('#', 25));
+            Console.WriteLine();
 
             char enteredChar = '\0';
 
@@ -55,21 +51,22 @@ namespace ConsoleTyper
 
         private static void InitializeGame()
         {
-            Console.WriteLine("Press P to play with random sentence. Press E to Enter your custom text.");
+            Console.WriteLine("Press R to play with random sentence. Press C to enter your custom text.");
 
             char enteredChar = '\0';
             do
             {
                 enteredChar = char.ToUpperInvariant(Console.ReadKey().KeyChar);
             }
-            while (enteredChar != 'P' && enteredChar != 'E');
+            while (enteredChar != 'R' && enteredChar != 'C');
 
-            if (enteredChar == 'P')
+            if (enteredChar == 'R')
             {
-                _statementToType = _sentenceGenerator.GetRandomStatement(100);
+                _statementToType = _sentenceGenerator.GetRandomStatement(_randomSentenceMinWords);
             }
             else
             {
+                Console.Clear();
                 Console.Write("Enter your custom text : ");
                 _statementToType = Console.ReadLine();
             }
@@ -84,6 +81,7 @@ namespace ConsoleTyper
 
             _statementToType = sb.ToString();
 
+            Console.Clear();
             BeginTyping();
         }
 
