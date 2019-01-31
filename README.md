@@ -7,3 +7,6 @@ Feautres :
 - Displays typing speed in words per minute
 - Displays typing accuracy in %
 - Incorrect key press indication with beep
+
+
+<a href="https://github.com/chaosifier/StringReplacer/raw/master/StringReplacer/bin/Release/StringReplacer.exe"><h3>Download Windows Executable</h3></a>
