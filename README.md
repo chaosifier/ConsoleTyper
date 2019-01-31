@@ -9,4 +9,4 @@ Feautres :
 - Incorrect key press indication with beep
 
 
-<a href="https://github.com/chaosifier/ConsoleTyper/blob/master/ConsoleTyper.Windows.exe"><h3>Download Windows Executable</h3></a>
+<a href="https://github.com/chaosifier/ConsoleTyper/raw/master/ConsoleTyper.Windows.exe"><h3>Download Windows Executable</h3></a>
