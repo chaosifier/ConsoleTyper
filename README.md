@@ -8,5 +8,7 @@ Feautres :
 - Displays typing accuracy in %
 - Incorrect key press indication with beep
 
+Demo :
 
-<a href="https://github.com/chaosifier/ConsoleTyper/raw/master/ConsoleTyper.Windows.exe"><h3>Download Windows Executable</h3></a>
+https://github.com/chaosifier/ConsoleTyper/assets/7871740/5932dcf2-5cf2-4289-910a-c9443411be2d
+
